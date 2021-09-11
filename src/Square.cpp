@@ -5,17 +5,20 @@
 #include "Square.h"
 #include <cmath>
 
+#include "constants.h"
+
 void Square::movement() {
-    vx += g_left * delay;
-    vy += g_down * delay;
-    y += vy * delay + g_down * delay * delay / 2;
-    x -= vx * delay + g_left * delay * delay / 2;
+//    vx += g_left * delay;
+//    vy += g_down * delay;
+//    y += vy * delay + g_down * delay * delay / 2;
+//    x -= vx * delay + g_left * delay * delay / 2;
+    velocity = acceleration * delay;
+    pos = velocity * delay + acceleration * delay * delay / 2.0f;
 }
 
-void Square::recover(int Gas_x, int Gas_y) {
-    int dx = abs(Gas_x - x);
-    int dy = abs(Gas_y - y);
-    if (dx < r && dy < r) health += 10;
+void Square::recover(sf::Vector2f gas_pos) {
+    sf::Vector2f dr(std::abs(gas_pos.x - pos.x), std::abs(gas_pos.y - pos.y));
+    if (dr.x < r && dr.y < r) health += 10;
 }
 
 void Square::Bar_interaction(int check, Barrier v) {

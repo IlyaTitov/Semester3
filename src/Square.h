@@ -12,21 +12,20 @@
 
 class Square {
 public:
-    int x; // coordinates of the centre of the square
-    int y;
-    int r;// the radius of the circumscribed circle
-    int vx;
-    int vy;
+    //int x; // coordinates of the centre of the square
+    //int y;
+    sf::Vector2f pos;
+    float r;// the radius of the circumscribed circle
+    //int vx;
+    //int vy;
+    sf::Vector2f velocity;
     int health;
-    int g_down;
-    int g_left;
-    int g_up;
-
-
+    //int g_down;
+    sf::Vector2f acceleration;
 
     void movement();
 
-    void recover(int Gas_x, int Gas_y);
+    void recover(sf::Vector2f gas_pos);
 
     void Bar_interaction(int check, Barrier v);
 

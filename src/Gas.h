@@ -5,6 +5,9 @@
 #ifndef SEMESTER3_GAS_H
 #define SEMESTER3_GAS_H
 
+#include <random>
+#include <cmath>
+
 class Gas {
 public:
     int x;
@@ -12,13 +15,7 @@ public:
     int vx;
     int vy;
 
-    void create() {
-        x = rand() % L + 50;
-        y = rand() % H + 50;
-        vx = rand() % 200;
-        vy = rand() % 200;
-    }
-
+    void create();
     //void movement() {}
 };
 

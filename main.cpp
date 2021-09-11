@@ -4,9 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <chrono>
-#include<ctime>
+#include <ctime>
 #include <fstream>
-# include <random>
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -20,14 +19,7 @@
 using namespace sf;
 using namespace std;
 
-const int H = 500; //
-const int L = 500; //
-const int N = 3;
-const int r = 15;
-const int G_down = 40;
-const int G_left = 70;
-const float delay = 0.1;
-const int tr_r = 10;
+
 
 int main() {
     sf::Font font;//font class
