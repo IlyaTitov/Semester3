@@ -49,7 +49,7 @@ public:
     int* arr;
     int dx; // rectangle length
     int dy; // rectangle width
-    Barrier(int inx, int iny, int indx,int indy) // конструктор
+    Barrier(int inx, int iny, int indx,int indy) // constructor
      {
         x = inx;
         y = iny;
@@ -63,7 +63,7 @@ class Square
 {
 public:
 
-        int x; // coordinates of the centor of the square
+        int x; // coordinates of the centre of the square
         int y;
         int r;// the radius of the circumscribed circle
         int vx;
@@ -192,27 +192,21 @@ class Field
 
 
 };
+
 int main()
 {
     sf::Font font;//font class
     font.loadFromFile("CyrilicOld.TTF");
 
-
     int check = -1; // game mode
-
 
     srand(time(NULL));
     RenderWindow window(VideoMode(H,L), "Movement");
-
-
-
-
 
     vector<Key>  keys;
 
     int g = 10;
     Key element;
-
 
     element.x = L - 50;
     element.y = 50;
@@ -225,8 +219,6 @@ int main()
     element.x = L/2;
     element.y = H/2;
     keys.push_back(element);
-
-
 
     Gas* mass = new Gas[N];
     //Barrier* mass_of_bar = new Barrier[4];
@@ -242,8 +234,6 @@ int main()
     object.g_down = G_down;
     object.g_left = 0;
 
-
-
     for (int i = 0; i < N; i++ )
     {
 
@@ -256,13 +246,9 @@ int main()
         */
     }
 
-
     // Variables for timer and delay
 	float timer = 0 ; //, delay = 0.1;
-
-	// Часы (таймер)
 	Clock clock;
-
 
     while(window.isOpen())
     {
