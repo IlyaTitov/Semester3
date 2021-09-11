@@ -63,9 +63,9 @@ class Square
 {
 public:
 
-        int x; // координаты центора квадрата
+        int x; // coordinates of the centor of the square
         int y;
-        int r;// радиус описанной окружности
+        int r;// the radius of the circumscribed circle
         int vx;
         int vy;
         int health;
@@ -91,7 +91,7 @@ public:
 
         void Bar_interaction (int check, Barrier v)
         {
-            int y1 = (y + vy * delay + g_down * delay* delay/2 ); // координата левого угла;
+            int y1 = (y + vy * delay + g_down * delay* delay/2 ); // the coordinate of the left corner;
             int x1 = x - vx * delay + g_left * delay* delay/2;
                 if (check == 0 )
                     {
@@ -149,7 +149,7 @@ public:
                     }
 
 
-                    if (abs(dx)  < 5 && abs(dy) < 5) // освобождение заложника
+                    if (abs(dx)  < 5 && abs(dy) < 5) // release of the hostage
                     {
                         vx = 0;
                         vy = 0;
@@ -194,11 +194,11 @@ class Field
 };
 int main()
 {
-    sf::Font font;// класс шрифта
+    sf::Font font;//font class
     font.loadFromFile("CyrilicOld.TTF");
 
 
-    int check = -1; // режим игры
+    int check = -1; // game mode
 
 
     srand(time(NULL));
@@ -238,7 +238,7 @@ int main()
     object.x = 100 ;
     object.y = 100;
     object.vy = -40;
-    object.g_up = 0; // вначале прятиваем вниз
+    object.g_up = 0; // first, we hide it down
     object.g_down = G_down;
     object.g_left = 0;
 
@@ -257,7 +257,7 @@ int main()
     }
 
 
-    // Переменные для таймера и задержки
+    // Variables for timer and delay
 	float timer = 0 ; //, delay = 0.1;
 
 	// Часы (таймер)
@@ -344,13 +344,13 @@ int main()
                 //if (object.health < 0) window.close();
                 if (event.key.code == Keyboard::Up)
                 {
-                    if (check == 0)// притяжение вниз
+                    if (check == 0)// pull down
                     {
                         object.vy = -80;
                         object.g_down = G_down;
                     }
 
-                    if (check == 1 or check == 2) // притяжение влево и вверх
+                    if (check == 1 or check == 2) // pull left and up
                     {
                         object.y -= 2;
 
@@ -363,8 +363,8 @@ int main()
 
 
 
-                    if (check == 0 or check == 1) object.y += 2; // притяжение вниз и влева
-                    if (check == 2) // притяжение вверх
+                    if (check == 0 or check == 1) object.y += 2; // pull down and left
+                    if (check == 2) // pull up
                     {
                         object.vy = 80;
                         object.g_down = - G_down;
@@ -375,7 +375,7 @@ int main()
                 if (event.key.code == Keyboard::Left) object.x -= 2;
                 if (event.key.code == Keyboard::Right)
                 {
-                    if (check == 0 ) object.x += 2; // притяжение вниз и вверх
+                    if (check == 0 ) object.x += 2; // pull down and up
                     if (check == 2) object.x += 2;
                     if (check == 1)
                     {
