@@ -13,6 +13,10 @@
 #include <iostream>
 #include <sstream>
 
+#include "Key.h"
+#include "Square.h"
+#include "Gas.h"
+
 using namespace sf;
 using namespace std;
 
@@ -20,124 +24,10 @@ const int H = 500; //
 const int L = 500; //
 const int N = 3;
 const int r = 15;
-const int G_up = 70;
 const int G_down = 40;
 const int G_left = 70;
 const float delay = 0.1;
 const int tr_r = 10;
-
-
-class Key {
-public:
-    int x;
-    int y;
-};
-
-class Rocket {
-public:
-    int x;
-    int y;
-    int damage;
-};
-
-class Barrier {
-public:
-    int x;//coordinates of the left corner
-    int y;
-    int *arr;
-    int dx; // rectangle length
-    int dy; // rectangle width
-    Barrier(int inx, int iny, int indx, int indy) // constructor
-    {
-        x = inx;
-        y = iny;
-        dx = indx;
-        dy = indy;
-    }
-};
-
-class Square {
-public:
-    int x; // coordinates of the centre of the square
-    int y;
-    int r;// the radius of the circumscribed circle
-    int vx;
-    int vy;
-    int health;
-    int g_down;
-    int g_left;
-    int g_up;
-
-    void movement() {
-        vx += g_left * delay;
-        vy += g_down * delay;
-        y += vy * delay + g_down * delay * delay / 2;
-        x -= vx * delay + g_left * delay * delay / 2;
-    }
-
-    void recover(int Gas_x, int Gas_y) {
-        int dx = abs(Gas_x - x);
-        int dy = abs(Gas_y - y);
-        if (dx < r && dy < r) health += 10;
-    }
-
-    void Bar_interaction(int check, Barrier v) {
-        int y1 = (y + vy * delay + g_down * delay * delay / 2); // the coordinate of the left corner;
-        int x1 = x - vx * delay + g_left * delay * delay / 2;
-        if (check == 0) {
-            if (y1 > v.y and x < v.x + v.dx and x > v.x and y1 < v.y + v.dy) {
-                vy = 0;
-                g_down = 0;
-            } else g_down = G_down;
-        }
-
-        if (check == 1) {
-            if (x1 < v.x + v.dx and y1 < v.y + v.dy and y1 > v.y) {
-                vx = 0;
-                g_left = 0;
-            } else g_left = G_left;
-        }
-
-        if (check == 2) {
-            if (y1 > v.y and x < v.x + v.dx and x > v.x and y1 < v.y + v.dy) {
-                vy = 0;
-                g_down = 0;
-            } else g_down = -G_down;
-        }
-    }
-
-    int Key_interaction(Key k, int check) {
-        float dx = (k.x - tr_r - x + r);
-        float dy = (k.y - tr_r - y + r);
-        if ((dx * dx + dy * dy) < 1600) {
-            health -= 10;
-        }
-        if (abs(dx) < 5 && abs(dy) < 5) // release of the hostage
-        {
-            vx = 0;
-            vy = 0;
-            check++;
-        }
-        return check;
-    }
-};
-
-class Gas {
-public:
-    int x;
-    int y;
-    int vx;
-    int vy;
-
-    void create() {
-        x = rand() % L + 50;
-        y = rand() % H + 50;
-        vx = rand() % 200;
-        vy = rand() % 200;
-    }
-
-    void movement() {}
-};
 
 int main() {
     sf::Font font;//font class
@@ -145,7 +35,7 @@ int main() {
 
     int check = -1; // game mode
 
-    srand(time(NULL));
+    srand(time(nullptr));
     RenderWindow window(VideoMode(H, L), "Movement");
 
     vector<Key> keys;
