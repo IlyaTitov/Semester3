@@ -44,12 +44,11 @@ class Barrier
 {
 
 public:
-    int x;// координаты левого угла
+    int x;//coordinates of the left corner
     int y;
     int* arr;
-    int dx; // длина прямоугольника
-    int dy; // ширина прямоугольника
-
+    int dx; // rectangle length
+    int dy; // rectangle width
     Barrier(int inx, int iny, int indx,int indy) // конструктор
      {
         x = inx;
