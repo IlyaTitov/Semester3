@@ -11,7 +11,7 @@ public:
 
     bool init(subvector *qv)
     {
-        //инициализация пустого недовектора
+        //initializing an empty non-vector
         qv ->top = 0;
         qv ->capacity =0;
         qv-> mas = NULL;
@@ -20,7 +20,7 @@ public:
 
     int get_element(subvector* qv, int  where)
     {
-        // where - индекс, то есть с нуля
+        // where -index, that is, from scratch
 
         return qv->mas[where];
 
@@ -94,8 +94,8 @@ public:
     }
 
     bool push_back(subvector *qv, int d)
-    //добавление элемента в конец недовектора
-    //с выделением дополнительной памяти при необходимостия
+ // adding an element to the end of a non-vector
+//with additional memory allocation if necessary
 
     {
 
@@ -148,7 +148,7 @@ public:
 
 
 
-    int pop_back(subvector *qv)//удаление элемента с конца недовектора
+    int pop_back(subvector *qv)// removing an element from the end of a sub-vector
     {
 
        int data = 0;
@@ -166,7 +166,7 @@ public:
 
         return data;
     }
-    bool resize(subvector *qv, unsigned int new_capacity) //увеличить емкость недовектора
+    bool resize(subvector *qv, unsigned int new_capacity) //increase the capacity of the under-vector
     {
         int* new_mas = new int  [new_capacity];
         for (unsigned int i = 0; i < qv ->top; ++i)
@@ -184,7 +184,7 @@ public:
         return 0;
 
     }
-    void shrink_to_fit(subvector *qv) //очистить неиспользуемую память
+    void shrink_to_fit(subvector *qv) // clear unused memory
     {
 
         if (qv->top == qv->capacity)
@@ -214,8 +214,8 @@ public:
 
     }
     void clear(subvector *qv)
-    //очистить содержимое недовектора, занимаемое место
-    //при этом не меняется
+    // clear the contents of the under-vector, the space occupied
+//does not change at the same time
     {
 
         qv->top = 0;
@@ -223,13 +223,13 @@ public:
 
     }
     void destructor(subvector *qv)
-    //очистить всю используемую память, инициализировать
-    //недовектор как пустой
+    // clear all used memory, initialize
+/ / the under-vector as empty
     {
         delete [] qv ->mas;
         init(qv);
     }
-    bool init_from_file(subvector *qv, char *filename) //инициализировать недовектор из файла
+    bool init_from_file(subvector *qv, char *filename) // initialize a non-vector from a file
     {
 
         return true;
