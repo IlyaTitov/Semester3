@@ -60,3 +60,10 @@ int Square::Key_interaction(Key k, int check) {
         }
     return check;
 }
+
+void Square::draw(sf::RenderWindow &window) {
+    sf::CircleShape circle1(r, 4);
+    circle1.setFillColor(sf::Color(230, 0, 230));
+    circle1.move(pos.x, pos.y);
+    window.draw(circle1);
+}

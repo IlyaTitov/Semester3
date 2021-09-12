@@ -13,7 +13,7 @@
 #include <sstream>
 
 #include "Key/Key.h"
-#include "Square.h"
+#include "Square/Square.h"
 #include "Gas/Gas.h"
 
 #include "constants.h"
@@ -213,37 +213,19 @@ int main() {
             }
 
             for (int i = 0; i < v.size(); i++) { // барьеры
-                RectangleShape rectangle(Vector2f(v[i].dx, v[i].dy));
-                rectangle.move(v[i].x, v[i].y);
-                rectangle.setFillColor(Color(230, 230, 230));
-                window.draw(rectangle);
+                v[i].draw(window);
             }
 
             for (int i = 0; i < keys.size(); i++) { // ключи
-                CircleShape circle5(40);
-                circle5.setFillColor(Color(0, 0, 230));
-                circle5.move(keys[i].x + (tr_r - 40) / sqrt(2), keys[i].y + (tr_r - 40) / sqrt(2));
-                window.draw(circle5);
-
-                CircleShape triangle(tr_r, 3);
-                triangle.setFillColor(Color(230, 230, 0));
-                triangle.move(keys[i].x, keys[i].y);
-                //cout << keys[i].x;
-                window.draw(triangle);
+                keys[i].draw(window);
             }
 
             for (int i = 0; i < N; i++) { // рисую круги
-                CircleShape circle(r);
-                circle.setFillColor(Color(0, 230, 230));
-                circle.move(mass[i].pos.x, mass[i].pos.y);
-                window.draw(circle);
+                mass[i].draw(window);
             }
 
             // рисую объект
-            CircleShape circle1(object.r, 4);
-            circle1.setFillColor(Color(230, 0, 230));
-            circle1.move(object.pos.x, object.pos.y);
-            window.draw(circle1);
+            object.draw(window);
 
             // вывод на экран здоровье персонажа
             Text text;

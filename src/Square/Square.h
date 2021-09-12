@@ -6,6 +6,7 @@
 #define SEMESTER3_SQUARE_H
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "Barrier/Barrier.h"
 #include "Key/Key.h"
@@ -30,6 +31,8 @@ public:
     void Bar_interaction(int check, Barrier v);
 
     int Key_interaction(Key k, int check);
+
+    void draw( sf::RenderWindow& window );
 };
 
 #endif //SEMESTER3_SQUARE_H

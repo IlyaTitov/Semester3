@@ -9,6 +9,7 @@
 #include <cmath>
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics.hpp>
 
 class Gas {
 public:
@@ -17,6 +18,8 @@ public:
 
     void create();
     void movement();
+
+    void draw( sf::RenderWindow& window );
 };
 
 #endif //SEMESTER3_GAS_H

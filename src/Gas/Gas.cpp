@@ -27,3 +27,10 @@ void Gas::movement() {
     }
     pos += velocity * delay;
 }
+
+void Gas::draw(sf::RenderWindow& window) {
+    sf::CircleShape circle(r);
+    circle.setFillColor(sf::Color(0, 230, 230));
+    circle.move(pos.x, pos.y);
+    window.draw(circle);
+}

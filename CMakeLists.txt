@@ -4,7 +4,7 @@ project(Semester3)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(Semester3
-        vector.cpp main.cpp src/Rocket.h src/Key/Key.h src/Barrier/Barrier.h src/Square.h src/Gas/Gas.h src/Barrier/Barrier.cpp src/Square.cpp src/constants.h src/Gas/Gas.cpp src/Key/Key.cpp)
+        vector.cpp main.cpp src/Key/Key.h src/Barrier/Barrier.h src/Square/Square.h src/Gas/Gas.h src/Barrier/Barrier.cpp src/Square/Square.cpp src/constants.h src/Gas/Gas.cpp src/Key/Key.cpp)
 
 # sfml include magic
 
