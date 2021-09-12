@@ -12,14 +12,14 @@
 #include <iostream>
 #include <sstream>
 
-#include "Key.h"
+#include "Key/Key.h"
 #include "Square.h"
-#include "Gas.h"
+#include "Gas/Gas.h"
+
+#include "constants.h"
 
 using namespace sf;
 using namespace std;
-
-
 
 int main() {
     sf::Font font;//font class
@@ -33,7 +33,7 @@ int main() {
     vector<Key> keys;
 
     int g = 10;
-    Key element;
+    Key element{};
 
     element.x = L - 50;
     element.y = 50;
@@ -54,22 +54,12 @@ int main() {
     Square object;
     object.r = 10;
     object.health = 1000;
-    object.x = 100;
-    object.y = 100;
-    object.vy = -40;
-    object.g_up = 0; // first, we hide it down
-    object.g_down = G_down;
-    object.g_left = 0;
+    object.pos = sf::Vector2f(100.0f, 100.0f);
+    object.velocity = sf::Vector2f(0.0f, -40.0f);
+    object.acceleration = sf::Vector2f(0, G_down);
 
     for (int i = 0; i < N; i++) {
-
         mass[i].create();
-        /*
-        (mass + i)->x = rand()%L +50;
-        (mass + i)->y = rand()%H + 50 ;
-        mass[i].vx = rand()%200;
-        mass[i].vy = rand()%200;
-        */
     }
 
     // Variables for timer and delay
@@ -78,6 +68,7 @@ int main() {
 
     while (window.isOpen()) {
 
+        // Main menu before the game
         if (check == -1) {
             window.clear(Color::White);
             int R = 40;
@@ -129,51 +120,51 @@ int main() {
                     //if (object.health < 0) window.close();
                     if (event.key.code == Keyboard::Up) {
                         if (check == 0) {// pull down
-                            object.vy = -80;
-                            object.g_down = G_down;
+                            object.velocity.y = -80;
+                            object.acceleration.y = G_down;
                         }
                         if (check == 1 or check == 2) { // pull left and up
-                            object.y -= 2;
+                            object.pos.y -= 2;
                         }
                     }
 
                     if (event.key.code == Keyboard::Down) {
-                        if (check == 0 or check == 1) object.y += 2; // pull down and left
+                        if (check == 0 or check == 1) object.pos.y += 2; // pull down and left
                         if (check == 2) { // pull up
-                            object.vy = 80;
-                            object.g_down = -G_down;
+                            object.velocity.y = 80;
+                            object.acceleration.y = -G_down;
                         }
                     }
 
-                    if (event.key.code == Keyboard::Left) object.x -= 2;
+                    if (event.key.code == Keyboard::Left) object.pos.x -= 2;
                     if (event.key.code == Keyboard::Right) {
-                        if (check == 0) object.x += 2; // pull down and up
-                        if (check == 2) object.x += 2;
+                        if (check == 0) object.pos.x += 2; // pull down and up
+                        if (check == 2) object.pos.x += 2;
                         if (check == 1) {
-                            object.vx = -80;
-                            object.g_left = G_left;
+                            object.velocity.x = -80;
+                            object.acceleration.x = -G_left;
                         }
                     }
 
                     if (event.key.code == Keyboard::W) {
-                        Barrier bar_up{object.x + r - 25, 0, 50,
-                                       object.y}; // x, y, dx, dy  object.x - верхний левый угол
+                        Barrier bar_up{object.pos.x + r - 25, 0, 50,
+                                       object.pos.y}; // x, y, dx, dy  object.x - верхний левый угол
                         v.push_back(bar_up);
                     }
 
                     if (event.key.code == Keyboard::D) {
-                        Barrier bar_up{object.x + 2 * object.r, object.y + object.r - 25, 4, 50}; // x, y, dx, dy
+                        Barrier bar_up{object.pos.x + 2 * object.r, object.pos.y + object.r - 25, 4, 50}; // x, y, dx, dy
                         v.push_back(bar_up);
                     }
 
                     if (event.key.code == Keyboard::S) {
-                        Barrier bar_up{object.x + r - 25, object.y + 2 * object.r, 50,
-                                       H - object.y}; // x, y, dx, dy  object.x - верхний левый угол
+                        Barrier bar_up{object.pos.x + r - 25, object.pos.y + 2 * object.r, 50,
+                                       H - object.pos.y}; // x, y, dx, dy  object.x - верхний левый угол
                         v.push_back(bar_up);
                     }
 
                     if (event.key.code == Keyboard::A) {
-                        Barrier bar_up{0, object.y + r - 25, object.x - 2 * object.r, 50}; // x, y, dx, dy
+                        Barrier bar_up{0, object.pos.y + r - 25, object.pos.x - 2 * object.r, 50}; // x, y, dx, dy
                         v.push_back(bar_up);
                     }
 
@@ -182,23 +173,8 @@ int main() {
                 if (timer > delay) {
                     // движение шаров
                     for (int i = 0; i < N; i++) {
-                        if ((mass[i].x + r) >= L or (mass[i].x - r) <= 10) {
-                            mass[i].vx = -mass[i].vx;
-                            mass[i].x += mass[i].vx * delay;
-                        }
-                        if ((mass[i].y + r) >= H or (mass[i].y - r) <= 10) {
-                            mass[i].vy = -mass[i].vy;
-                            mass[i].y += mass[i].vy * delay;
-                        }
-
-                        object.recover(mass[i].x, mass[i].y); // пополнение здоровья
-                    }
-
-                    // движение шаров
-                    for (int i = 0; i < N; i++) {
-                        mass[i].x += mass[i].vx * delay;
-                        mass[i].y += mass[i].vy * delay;
-
+                        mass[i].movement();
+                        object.recover(mass[i].pos); // пополнение здоровья
                     }
 
                     // движение объекта
@@ -220,20 +196,18 @@ int main() {
                     }
 
                     // проверка на выход за границы
-                    if (object.x < 0 or object.x > L or object.y < 0 or object.y > H) object.health = 0;
+                    if (object.pos.x < 0 or object.pos.x > L or object.pos.y < 0 or object.pos.y > H) object.health = 0;
                     timer = 0;
                 }
             }
 
             window.clear(Color::White);
             if (check == 1) {
-                object.g_down = 0;
-                object.g_left = G_left;
+                object.acceleration = sf::Vector2f(0, -G_left);
             }
 
             if (check == 2) {
-                object.g_down = -G_down;
-                object.g_left = 0;
+                object.acceleration = sf::Vector2f(-G_down, 0);
             }
 
             for (int i = 0; i < v.size(); i++) { // барьеры
@@ -259,14 +233,14 @@ int main() {
             for (int i = 0; i < N; i++) { // рисую круги
                 CircleShape circle(r);
                 circle.setFillColor(Color(0, 230, 230));
-                circle.move(mass[i].x, mass[i].y);
+                circle.move(mass[i].pos.x, mass[i].pos.y);
                 window.draw(circle);
             }
 
             // рисую объект
             CircleShape circle1(object.r, 4);
             circle1.setFillColor(Color(230, 0, 230));
-            circle1.move(object.x, object.y);
+            circle1.move(object.pos.x, object.pos.y);
             window.draw(circle1);
 
             // вывод на экран здоровье персонажа

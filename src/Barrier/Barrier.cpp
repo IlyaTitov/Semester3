@@ -4,6 +4,6 @@
 
 #include "Barrier.h"
 
-Barrier::Barrier(int inx, int iny, int indx, int indy) // constructor
+Barrier::Barrier(float inx, float iny, float indx, float indy) // constructor
     : x(inx), y(iny), dx(indx), dy(indy), arr(nullptr) {}
 

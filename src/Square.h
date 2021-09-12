@@ -7,8 +7,8 @@
 
 #include <SFML/System/Vector2.hpp>
 
-#include "Barrier.h"
-#include "Key.h"
+#include "Barrier/Barrier.h"
+#include "Key/Key.h"
 
 class Square {
 public:

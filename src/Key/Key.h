@@ -10,6 +10,9 @@ class Key {
 public:
     int x;
     int y;
+
+    Key() = default;
+    Key(int x, int y);
 };
 
 #endif //SEMESTER3_KEY_H

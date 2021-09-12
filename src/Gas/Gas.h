@@ -8,15 +8,16 @@
 #include <random>
 #include <cmath>
 
+#include <SFML/System/Vector2.hpp>
+
 class Gas {
 public:
-    int x;
-    int y;
-    int vx;
+    sf::Vector2f pos;
+    sf::Vector2f velocity;
     int vy;
 
     void create();
-    //void movement() {}
+    void movement();
 };
 
 #endif //SEMESTER3_GAS_H
