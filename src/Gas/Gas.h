@@ -14,7 +14,6 @@ class Gas {
 public:
     sf::Vector2f pos;
     sf::Vector2f velocity;
-    int vy;
 
     void create();
     void movement();

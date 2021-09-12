@@ -108,7 +108,9 @@ int main() {
             }
         }
 
+        // The game itself
         if (check >= 0 and check < 3) {
+            std::cout << object.acceleration.x << " " << object.acceleration.y << std::endl;
             float time = clock.getElapsedTime().asSeconds();
             clock.restart();
             timer += time;
@@ -117,7 +119,7 @@ int main() {
             if (object.health > 0) {
                 while (window.pollEvent(event)) {
                     if (event.type == Event::Closed) window.close();
-                    //if (object.health < 0) window.close();
+
                     if (event.key.code == Keyboard::Up) {
                         if (check == 0) {// pull down
                             object.velocity.y = -80;
@@ -195,7 +197,7 @@ int main() {
                         }
                     }
 
-                    // проверка на выход за границы
+//                     проверка на выход за границы
                     if (object.pos.x < 0 or object.pos.x > L or object.pos.y < 0 or object.pos.y > H) object.health = 0;
                     timer = 0;
                 }

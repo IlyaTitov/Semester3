@@ -12,8 +12,8 @@ void Square::movement() {
 //    vy += g_down * delay;
 //    y += vy * delay + g_down * delay * delay / 2;
 //    x -= vx * delay + g_left * delay * delay / 2;
-    velocity = acceleration * delay;
-    pos = velocity * delay + acceleration * delay * delay / 2.0f;
+    velocity += acceleration * delay;
+    pos += velocity * delay + acceleration * delay * delay / 2.0f;
 }
 
 void Square::recover(sf::Vector2f gas_pos) {

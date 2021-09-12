@@ -23,7 +23,7 @@ void Gas::movement() {
         velocity.x = -velocity.x;
     }
     if ((pos.y + r) >= H or (pos.y - r) <= 10) {
-        vy = -vy;
+        velocity.y = -velocity.y;
     }
     pos += velocity * delay;
 }
